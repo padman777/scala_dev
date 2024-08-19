@@ -13,10 +13,22 @@ object chapter1 {
 
     val bc = b < -10 || b > 10
 
-    print (bc)
-
-    //
 
 
+    // odd and not divisible by 3
+
+    val c =27
+
+    val cc = c %2 == 1 && c % 3 != 0
+
+
+
+    // divisibility by 4 and 6
+
+    val d = 18
+
+    val dc = d % 4 == 0 && d % 6 == 0
+
+    print (dc)
   }
 }
