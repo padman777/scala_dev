@@ -29,6 +29,32 @@ object chapter1 {
 
     val dc = d % 4 == 0 && d % 6 == 0
 
-    print (dc)
+
+   // elgibility for voting or driving
+
+    val age = 20
+
+    val dage = age >= 18 || age  >= 16
+
+    // multiple range check (1,10) or (20,30)
+
+    val range = 25
+
+    val drange = (range > 1 && range < 20) || (range > 20 && range < 30)
+
+
+
+
+
+    ///both negative and odd
+
+    val neg = -7
+
+    val dneg = neg < 0 && neg % 2 !=0
+
+    print (dneg)
+
+
+
   }
 }
