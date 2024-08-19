@@ -52,7 +52,68 @@ object chapter1 {
 
     val dneg = neg < 0 && neg % 2 !=0
 
-    print (dneg)
+
+
+    // student discoutn or senior discount
+
+    var student =63
+
+    var dstudent = student > 60 || student < 25
+
+
+
+    // divisiblity by 5 and 7
+
+    var div = 35
+
+    var ddiv = div % 5 ==0 && div % 7 ==0
+
+
+
+
+    // check fr non negative or even
+
+    var abc = -8
+
+    var dabc = abc >0 || abc % 2 ==0
+
+
+
+    // check fr prime and odd
+
+    var prime = 17
+
+    //discount or free shipping
+
+    var dis  =120
+
+    var ddis = dis > 150 || dis >100
+
+
+
+    // check odd and not divisible by 4
+
+    var t1 =15
+
+    var dt1 =  t1 % 2 !=0 && t1%4 !=0
+
+
+
+    // cehck if divisible by 2 or 3
+
+    var t2 = 9
+
+    var dt2 =  t2 % 2 ==0 || t2 % 3 ==0
+
+    print (dt2)
+
+    // odd or prime
+    // unable to find how to write a function for prime numbers
+
+
+    //
+
+
 
 
 
