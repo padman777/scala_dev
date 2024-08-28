@@ -1,19 +1,21 @@
 class Node[T](var data: T, var next: Option[Node[T]] = None)
-
-class LinkedList[T] {
+class LinkedList1[T] {
   var head: Option[Node[T]] = None
 
   def append(data: T): Unit = {
     val newNode = new Node(data)
-    head match {
-      case None =>
-        head = Some(newNode)
-      case Some(_) =>
-        var current = head
-        while (current.get.next.isDefined) {
-          current = current.get.next
-        }
-        current.get.next = Some(newNode)
+
+    if (head.isEmpty) {
+      head = Some(newNode)
+    }
+    else {
+
+      var current = head
+      while (current.get.next.isDefined) {
+        current = current.get.next
+      }
+      current.get.next = Some(newNode)
+
     }
   }
 
@@ -21,9 +23,10 @@ class LinkedList[T] {
     var current = head
     while (current.isDefined) {
       print(current.get.data + " -> ")
+      //      print(current.get.next + " -> ")
       current = current.get.next
     }
-    println("null")
+    //    println("null")
   }
 
   def delete(data: T): Unit = {
@@ -31,32 +34,48 @@ class LinkedList[T] {
   }
 
   private def deleteNode(node: Option[Node[T]], data: T): Option[Node[T]] = {
-    node match {
-      case None => None
-      case Some(current) =>
-        if (current.data == data) {
-          current.next
-        } else {
-          current.next = deleteNode(current.next, data)
-          Some(current)
-        }
+    var current = node
+    var prev: Option[Node[T]] = None
+
+    while (current.isDefined && current.get.data != data) {
+      prev = current
+      current = current.get.next
     }
+
+    if (prev.isEmpty) {
+      if (current.isDefined) {
+        current = current.get.next
+      }
+    } else {
+      if (current.isDefined) {
+        prev.get.next = current.get.next
+      } else {
+        prev.get.next = None
+      }
+    }
+
+    node
   }
+
+
 }
 
-object LinkedListApp {
+object second {
   def main(args: Array[String]): Unit = {
-    val linkedList = new LinkedList[Int]
+    val linkedList1 = new LinkedList1[Int]
 
-    linkedList.append(10)
-    linkedList.append(20)
-    linkedList.append(30)
+    linkedList1.append(10)
+    linkedList1.append(20)
+    linkedList1.append(30)
 
     println("Linked List:")
-    linkedList.display()
+    linkedList1.display()
 
-    linkedList.delete(10)
-    println("Linked List after deleting 10:")
-    linkedList.display()
+    //    linkedList.delete(10)
+    //    println("\nLinked List after deleting 2:")
+    //    linkedList.display()
+
+
   }
 }
+
