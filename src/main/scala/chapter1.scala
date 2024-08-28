@@ -105,7 +105,7 @@ object chapter1 {
 
     var dt2 =  t2 % 2 ==0 || t2 % 3 ==0
 
-    print (dt2)
+
 
     // odd or prime
     // unable to find how to write a function for prime numbers
