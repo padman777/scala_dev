@@ -2,11 +2,13 @@
 
 
 import io.netty.handler.codec.dns.DnsQuestion
-import org.apache.spark.sql.{SparkSession, functions}
+import org.apache.spark.sql.{SaveMode, SparkSession, functions}
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.functions._
 import org.apache.log4j.Logger
 import org.apache.log4j.Level
+import org.apache.spark.sql.expressions.Window
+import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 
 import scala.reflect.internal.util.NoPosition.show
 import scala.reflect.internal.util.TriState.True
@@ -311,15 +313,154 @@ object SparkAssignments{
 //        count("Rating")
 //      ).show()
 
+    //    val ddlschema="id Int,Name String,Salary Int,City String"
+
+//    val pg1schema=StructType(List(
+//      StructField("id",IntegerType),
+//      StructField("Name",StringType),
+//      StructField("Salary",IntegerType),
+//      StructField("City",StringType)
+//    ))
+//
+//    val df=spark.read
+//      .format("csv")
+//      .option("header",true)
+//      .schema(pg1schema)
+//      .option("mode","PERMISSIVE")
+//      .option("path","C:/Users/padma/Downloads/details.csv")
+//      .load()
+//    df.write
+//      .format("csv")
+//      .option("header",true)
+//      .mode(SaveMode.Ignore)
+//      .option("path","C:/Users/padma/Downloads/sep26op")
+//      .save()
+//    df.show()
+//  df.printSchema()
+
+
+//    val salesData = Seq(
+//      ("Product1", "Category1", 100),
+//      ("Product2", "Category2", 200),
+//      ("Product3", "Category1", 150),
+//      ("Product4", "Category3", 300),
+//      ("Product5", "Category2", 250),
+//      ("Product6", "Category3", 180),
+//      ("Product1", "Category2", 100),
+//      ("Product2", "Category1", 200),
+//      ("Product3", "Category2", 150),
+//      ("Product4", "Category4", 300),
+//      ("Product5", "Category1", 250),
+//      ("Product6", "Category4", 180)
+//    ).toDF("Product", "Category", "Revenue")
+//
+//
+//
+//    val windowSpec = Window.partitionBy("Product").orderBy("Category")
+//
+//    val runningTotal = salesData.withColumn("RunningTotal", sum("Revenue").over(windowSpec))
+//    runningTotal.show()
+
+    //apply lead on top of order_date......and get the answer
+//    val d1 = Seq (
+//      (101,"CustomerA","2023-09-01"),
+//      (103,"CustomerA","2023-09-03"),
+//      (102,"CustomerB","2023-09-02"),
+//      (104,"CustomerB","2023-09-04")
+//    ).toDF("order_id", "customer","order_date")
+//
+//    val window =Window.partitionBy("customer").orderBy("order_date")
+//
+//    val leaddf = d1.select(
+//      col("order_id"),
+//      col("customer"),
+//      col("order_date"),
+//      lead("order_date",1).over(window)
+//    ).show()
+
+
+    //we want to find the difference between the price on each day with it’s previous day.
+//    val d2 = Seq(
+//      (1, "KitKat",1000.0,"2021-01-01"),
+//      (1, "KitKat",2000.0,"2021-01-02"),
+//      (1, "KitKat",1000.0,"2021-01-03"),
+//      (1, "KitKat",2000.0,"2021-01-04"),
+//      (1, "KitKat",3000.0,"2021-01-05"),
+//      (1, "KitKat",1000.0,"2021-01-06")
+//
+//    ).toDF("IT_ID","IT_Name","Price", "PriceDate")
+//
+//    val win =Window.partitionBy(col("IT_Name")).orderBy(col("PriceDate"))
+//
+//    val d2output = d2.select(
+//      col("IT_ID"),
+//      col("IT_Name"),
+//      col("Price"),
+//      col("PriceDate"),
+//      col("Price")-lag("Price",1).over(win)
+//    ).show()
+
+
+//. If salary is less than previous month we will mark it as "DOWN", if salary has increased then "UP"
+    //
+    //ID,NAME,SALARY,DATE
+    //1,John,1000,01/01/2016
+    //1,John,2000,02/01/2016
+    //1,John,1000,03/01/2016
+    //1,John,2000,04/01/2016
+    //1,John,3000,05/01/2016
+    //1,John,1000,06/01/2016
+
+//    val d3 = Seq(
+//      (1,"John",1000,"01/01/2016"),
+//      (1,"John",2000,"02/01/2016"),
+//      (1,"John",1000,"03/01/2016"),
+//      (1,"John",2000,"04/01/2016"),
+//      (1,"John",3000,"05/01/2016"),
+//      (1,"John",1000,"06/01/2016")
+//    ).toDF("ID","NAME","SALARY","DATE")
+//
+//
+//  val win= Window.orderBy(col("date"))
+//
+//
+//    val d4 = d3.withColumn("new1",lead(col("SALARY"),1).over(win))
+//
+//    val d3output= d4.select(
+//      col("ID"),
+//      col("NAME"),
+//      col("SALARY"),
+//      col("DATE"),
+//      col("new1"),
+//      (when(col("SALARY")>col("new1"),"up")
+//        .when(col("SALARY")<col("new1"),"down")
+//        .otherwise("nochange"))
+//    ).show()
+
+//    d3output.withColumn("new1",(when(col("SALARY")>col("prevsal"),"up").otherwise("down")))
+
+
+//    val d5 = List(("2024-09-28"),("2024-09-30"),(null)).toDF("datestring")
+
+    //d5.withColumn("futuredate",when((col("datestring")).isNull,("na")).otherwise(date_add(col("datestring"),4))
 
 
 
+//    d5.withColumn("futuredate",
+//      when(col("datestring").isNull,lit ("na"))
+//        .otherwise(date_add(to_date(col("datestring")), 4))).show()
 
 
 
-
-
-
+//Given a DataFrame with date1 and date2 columns, handle missing date values
+//by filling them with default dates.
+//val df = List(("2023-10-07", null), (null, "2023-10-08")).toDF("date1","date2")
+//
+//   val df2= df
+//     .withColumn("date1", when(col("date1").isNull, lit("Defaultdate1")).otherwise(col("date1")))
+//     .withColumn("date2", when(col("date2").isNull, lit("Defaultdate2")).otherwise(col("date2")))
+//
+//    .show()
 
 
   }
