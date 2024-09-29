@@ -463,6 +463,108 @@ object SparkAssignments{
 //    .show()
 
 
+    //Finding the count of orders placed by each customer and the total order amount for
+      //each customer.
+
+//    val orderData = Seq(
+//  ("Order1", "John", 100),
+//  ("Order2", "Alice", 200),
+//  ("Order3", "Bob", 150),
+//  ("Order4", "Alice", 300),
+//  ("Order5", "Bob", 250),
+//  ("Order6", "John", 400)
+//).toDF("OrderID", "Customer", "Amount")
+//    orderData.show()
+//
+//
+//    val aggregatedData = orderData.groupBy("Customer")
+//      .agg(
+//        count("OrderID").alias("OrderCount"),
+//        sum("Amount").alias("TotalAmount")
+//      )
+//    aggregatedData.show()
+
+
+  //  Finding the average score for each subject and the maximum score for each student.
+//    val scoreData = Seq(
+//      ("Alice", "Math", 80),
+//      ("Bob", "Math", 90),
+//      ("Alice", "Science", 70),
+//      ("Bob", "Science", 85),
+//      ("Alice", "English", 75),
+//      ("Bob", "English", 95)
+//    ).toDF("Student", "Subject", "Score")
+//
+//    val d1 = scoreData.groupBy("Subject")
+//      .agg(
+//        avg("Score").alias("avg"),
+//        max("Score").alias("max")
+//      )
+//      d1.show()
+
+
+    //Finding the average rating for each movie and the total number of ratings for each movie.
+
+//    val ratingsData = Seq(
+//      ("User1", "Movie1", 4.5),
+//      ("User2", "Movie1", 3.5),
+//      ("User3", "Movie2", 2.5),
+//      ("User4", "Movie2", 3.0),
+//      ("User1", "Movie3", 5.0),
+//      ("User2", "Movie3", 4.0)
+//    ).toDF("User", "Movie", "Rating")
+//
+//
+//    ratingsData.groupBy("Movie")
+//      .agg(
+//        avg("Rating").alias("avg raing")
+//
+//
+//      ).show()
+
+
+
+//Finding the count of distinct products purchased by each customer and the total purchase
+    //amount for each customer.
+
+
+//    val purchaseData = Seq(
+//      ("Customer1", "Product1", 100),
+//      ("Customer1", "Product2", 150),
+//      ("Customer1", "Product3", 200),
+//      ("Customer2", "Product2", 120),
+//      ("Customer2", "Product3", 180),
+//      ("Customer3", "Product1", 80),
+//      ("Customer3", "Product3", 250)
+//    ).toDF("Customer", "Product", "Amount")
+//
+//
+//        purchaseData.groupBy("Customer")
+//          .agg(
+//            countDistinct("Product").alias("distinct count"),
+//            sum("Amount").alias("total purchase")
+//
+//          ).show()
+
+
+    //Finding the cumulative sum of sales amount for each product.
+    val salesData = Seq(
+      ("Product1", 100),
+      ("Product2", 200),
+      ("Product3", 150),
+      ("Product4", 300),
+      ("Product5", 250),
+      ("Product6", 180)
+    ).toDF("Product", "SalesAmount")
+
+    val win =Window.orderBy("Product")
+
+    val d1 = salesData.withColumn("cumulative sales",sum("SalesAmount").over(win)).show()
+
+
+
+
+
   }
 
 
