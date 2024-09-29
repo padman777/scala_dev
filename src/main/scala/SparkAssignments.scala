@@ -548,18 +548,18 @@ object SparkAssignments{
 
 
     //Finding the cumulative sum of sales amount for each product.
-    val salesData = Seq(
-      ("Product1", 100),
-      ("Product2", 200),
-      ("Product3", 150),
-      ("Product4", 300),
-      ("Product5", 250),
-      ("Product6", 180)
-    ).toDF("Product", "SalesAmount")
-
-    val win =Window.orderBy("Product")
-
-    val d1 = salesData.withColumn("cumulative sales",sum("SalesAmount").over(win)).show()
+//    val salesData = Seq(
+//      ("Product1", 100),
+//      ("Product2", 200),
+//      ("Product3", 150),
+//      ("Product4", 300),
+//      ("Product5", 250),
+//      ("Product6", 180)
+//    ).toDF("Product", "SalesAmount")
+//
+//    val win =Window.orderBy("Product")
+//
+//    val d1 = salesData.withColumn("cumulative sales",sum("SalesAmount").over(win)).show()
 
 
 
