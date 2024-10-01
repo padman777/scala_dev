@@ -9,6 +9,7 @@ import org.apache.log4j.Logger
 import org.apache.log4j.Level
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.apache.zookeeper.Transaction
 
 import scala.reflect.internal.util.NoPosition.show
 import scala.reflect.internal.util.TriState.True
@@ -562,13 +563,132 @@ object SparkAssignments{
 //    val d1 = salesData.withColumn("cumulative sales",sum("SalesAmount").over(win)).show()
 
 
+    //Create a new column price_category based on price:
+//    val df = List(
+//      (1, "Smartphone" ,700, "Electronics"),
+//      (2, "TV" ,1200, "Electronics"),
+//      (3, "Shoes" ,150, "Apparel"),
+//    (4, "Socks" ,25, "Apparel"),
+//    (5, "Laptop" ,800, "Electronics"),
+//    (6, "Jacket", 200, "Apparel")
+//    ).toDF("product_id", "product_name", "price","category")
+//
+//    val df2 =df.withColumn(
+//      "price_type",
+//      when(col("price")>500,"Expensive")
+//        .when(col("price")>=200,"moderate")
+//        otherwise("cheap")
+//    ).filter(col("product_name").like("S%") or (col("product_name").like("%S")))
+//
+//
+//    val df3 = df.groupBy("category")
+//      .agg(
+//        sum(col("price")),
+//        avg(col("price")),
+//        max(col("price")),
+//        min(col("price"))
+//      ).show()
+
+
+    //3 Create a new column rating_category based on rating:
+    //o
+    //'Excellent' if rating >= 8
+    //o
+    //'Good' if 6 <= rating < 8
+    //o
+    //'Average' if rating < 6
+//    val movies = List(
+//      (1, "The Matrix", 9, 136),
+//      (2, "Inception", 8, 148),
+//      (3, "The Godfather", 9, 175),
+//      (4, "Toy Story", 7, 81),
+//      (5, "The Shawshank Redemption", 10, 142),
+//      (6, "The Silence of the Lambs", 4, 118)
+//    ).toDF("movie_id", "movie_name",
+//      "rating", "duration_minutes")
+//
+//
+//    val df1 = movies.withColumn("rating_Category",
+//      when(col("rating")>=8,"excellent")
+//        .when(col("rating")>=6,"good").otherwise("avg")
+//    ).show()
+//
+//  }
+
+    //Create a new column transaction_month that extracts the month from transaction_date.
+    //
+    //Filter transactions that occurred in the month of 'December'.
+
+//    val transactions = List(
+//      (1, "2023-12-01", 1200, "Credit"),
+//      (2, "2023-11-15", 600, "Debit"),
+//      (3, "2023-12-20", 300, "Credit"),
+//      (4, "2023-10-10", 1500, "Debit"),
+//     (5, "2023-12-30", 250, "Credit"),
+//      (6, "2023-09-25", 700, "Debit")
+//    ).toDF("transaction_id", "transaction_date", "amount", "transaction_type")
+//
+//
+//
+//
+//    val df2 = transactions.withColumn("moth",
+//      month(col("transaction_date"))
+//
+//    ).filter(col("moth")==="12").show()
+
+    //Create a new column rating_category based on rating:
+    //o
+    //'Excellent' if rating >= 5
+    //o
+    //'Good' if 3 <= rating < 5
+    //o
+    //'Poor' if rating < 3
+    //
+    //Filter feedback with feedback_text that starts with 'Great'.
+    //
+    //Calculate the average rating per month.
+
+//    val reviews = List(
+//(1, "2024-01-10", 4, "Great service!"),
+//(2, "2024-01-15", 5, "Excellent!"),
+//(3, "2024-02-20", 2, "Poor experience."),
+// (4, "2024-02-25", 3, "Good value."),
+//(5, "2024-03-05", 4, "Great quality."),
+//(6, "2024-03-12", 1, "Bad service.")
+//).toDF("customer_id", "feedback_date", "rating", "feedback_text")
+//
+//
+////    reviews.withColumn("ratings_new",
+////      when(col("rating")>=5,"excellent")
+////        .when(col("rating")>3,"good")
+////        .otherwise("poor")
+////
+////        ).show()
+//
+//
+//    // Create a DataFrame from the sequence
+//    val df = reviews.toDF()
+//
+//    // Group by feedback_date and show the results
+//
+//
+//    df.groupBy(month(col("feedback_date")).alias("month"))
+//      .agg(avg(col("rating")).alias("average_rating"))
+//      .show()
 
 
 
-  }
+    val salesRecords = Seq(
+      (1, "North-West", 12000, "2024-01-10"),
+      (2, "South-East", 6000, "2024-01-15"),
+    (3, "East-Central", 4000, "2024-02-20"),
+     (4, "West", 15000, "2024-02-25"),
+     (5, "North-East", 3000, "2024-03-05"),
+      (6, "South-West", 7000, "2024-03-12")
+    ).toDF("sales_id" ,"region","sales_amount" ,"sales_date")
 
 
 
-
+}
 }
 
