@@ -677,18 +677,79 @@ object SparkAssignments{
 //      .show()
 
 
+///Calculate the total (sum), average (avg), maximum (max), and minimum (min) sales_amount
+//for each performance category
+//    val salesRecords = Seq(
+//      (1, "North-West", 12000, "2024-01-10"),
+//      (2, "South-East", 6000, "2024-01-15"),
+//    (3, "East-Central", 4000, "2024-02-20"),
+//     (4, "West", 15000, "2024-02-25"),
+//     (5, "North-East", 3000, "2024-03-05"),
+//      (6, "South-West", 7000, "2024-03-12")
+//    ).toDF("sales_id" ,"region","sales_amount" ,"sales_date")
+//
+//
+//    //salesRecords.filter(col("region").like("%West")).show()
+//
+//
+//
+//
+//      val df2 = salesRecords.agg(max("sales_amount")).show()
 
-    val salesRecords = Seq(
-      (1, "North-West", 12000, "2024-01-10"),
-      (2, "South-East", 6000, "2024-01-15"),
-    (3, "East-Central", 4000, "2024-02-20"),
-     (4, "West", 15000, "2024-02-25"),
-     (5, "North-East", 3000, "2024-03-05"),
-      (6, "South-West", 7000, "2024-03-12")
-    ).toDF("sales_id" ,"region","sales_amount" ,"sales_date")
+
+//    salesRecords.withColumn("west_region",
+//      when(col("region").like("%west"))
+
+
+    //Filter salaries where department starts with 'IT'.
+    //
+    //Calculate the total (sum), average (avg), maximum (max), and minimum (min) salary for each
+    //salary_band
+//    val employees = Seq(
+//      (1, "IT", 130000, "2024-01-10"),
+//      (2, "HR", 80000, "2024-01-15"),
+//      (3, "IT", 60000, "2024-02-20"),
+//      (4, "IT", 70000, "2024-02-25"),
+//      (5, "Sales", 50000, "2024-03-05"),
+//      (6, "IT", 90000, "2024-03-12")
+//    ).toDF("employee_id", "department" ,"salary", "last_increment_date")
+//
+//
+//    employees.withColumn("type",
+//      when(col("salary")>120000,"high")
+//        .when(col("salary")>60000,"medium")
+//        .otherwise("low")
+//    ).filter(col("department").like("IT%")).show()
+    val df1=spark.read
+      .format("csv")
+      .option("header",true)
+      .option("path","C:/Users/padma/Downloads/info.csv")
+      .load()
 
 
 
-}
+    val df2=spark.read
+      .format("csv")
+      .option("header",true)
+      .option("path","C:/Users/padma/Downloads/details.csv")
+      .load()
+
+    val condition=df1("id")===df2("id")
+
+    val jointype="fullouter"
+
+
+    val joineddf=df1.join(df2,condition,jointype).drop(df2("id"))
+
+    joineddf.show()
+
+
+
+
+
+
+
+
+  }
 }
 
