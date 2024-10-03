@@ -8,6 +8,8 @@ import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.apache.zookeeper.Transaction
 
+import scala.reflect.ClassManifestFactory.Null
+
 
 object assignment3 {
   def main(args: Array[String]): Unit = {
@@ -48,24 +50,56 @@ object assignment3 {
 //        count("employee_id")
 //      ).show()
 
+//Create a new column churn_year using year extracted from churn_date.
+    //
+    //Filter records where subscription_type starts with 'Premium' and churn_status is not null.
+    //
+    //Group by country and churn_year, and calculate:
+    //o
+    //The total revenue lost due to churn per year.
+    //o
+    //The average revenue per churned customer.
+//    The count of churned customers.
+//    
+//    Use the lead function to find the next year's revenue trend for each country.
 
+//    val customerChurn = List(
+//      ("C001", "Premium Gold", "Yes", "2023-12-01", 1200, "USA"),
+//      ("C002", "Basic", "No", null, 400, "Canada"),
+//      ("C003", "Premium Silver", "Yes", "2023-11-15", 800, "UK"),
+//      ("C004", "Premium Gold", "Yes", "2024-01-10", 1500, "USA"),
+//      ("C005", "Basic", "No", null, 300, "India"),
+//      ("C006", "Premium Silver", "Yes", "2024-01-20", 1300, "UK"),
+//      ("C007", "Premium Gold", "Yes", "2024-02-15", 1800, "USA"),
+//      ("C008", "Basic", "No", null, 600, "India"),
+//      ("C009", "Premium Gold", "Yes", "2023-12-25", 1700, "USA"),
+//      ("C010", "Premium Silver", "Yes", "2023-11-01", 900, "UK")
+//    ).toDF("customer_id" ,"subscription_type", "churn_status", "churn_date", "revenue" ,"country")
+//
+//
+//    val d1 = customerChurn
 
-    val customerChurn = List(
-      ("C001", "Premium Gold", "Yes", "2023-12-01", 1200, "USA"),
-      ("C002", "Basic", "No", null, 400, "Canada"),
-      ("C003", "Premium Silver", "Yes", "2023-11-15", 800, "UK"),
-      ("C004", "Premium Gold", "Yes", "2024-01-10", 1500, "USA"),
-      ("C005", "Basic", "No", null, 300, "India"),
-      ("C006", "Premium Silver", "Yes", "2024-01-20", 1300, "UK"),
-      ("C007", "Premium Gold", "Yes", "2024-02-15", 1800, "USA"),
-      ("C008", "Basic", "No", null, 600, "India"),
-      ("C009", "Premium Gold", "Yes", "2023-12-25", 1700, "USA"),
-      ("C010", "Premium Silver", "Yes", "2023-11-01", 900, "UK")
-    ).toDF("customer_id" ,"subscription_type", "churn_status", "churn_date", "revenue country")
+    //val d2 = d1.withColumn("churn year",year(col("churn_date"))).show ()
+    //&& col("churn_status").isNotNull()
+    //val d3= d1.filter(col("subscription_type").like("Premium%") && col("churn_status").isNotNull).show ()
 
+//    d1.groupBy(col("country"),year(col("churn_date")))
+//      .agg(sum(col("revenue")).alias("sum")
+//        ,avg(col("revenue")).alias("avg")
+//        ,count(col("revenue")).alias("count")
+//          ,sum(col("revenue")).alias("totalrevenue")
+//
+//      )
 
-
-
+//    d1.groupBy(col("country"))
+//      .agg(
+//        sum(col("revenue"))
+//
+//      )
+//val  win = Window.partitionBy(col("country")).orderBy(col("churn_date"))
+//
+//    d1.withColumn("lead",lead ("revenue",1).over(win))
+//      .withColumn("trend",coalesce(col("revenue"),lit(0))-col("lead")).show()
 
 
 
