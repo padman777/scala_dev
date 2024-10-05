@@ -42,11 +42,11 @@ object setA150Questions {
 //
 //      ).show()
 
-    val gradedData = sampledata.withColumn("grade",
-      when (col("Score")>90,"A")
-        .when(col("Score")>70,"c")
-        .otherwise("B")
-    ).show  ()
+//    val gradedData = sampledata.withColumn("grade",
+//      when (col("Score")>90,"A")
+//        .when(col("Score")>70,"c")
+//        .otherwise("B")
+//    ).show  ()
 //      sampledata.groupBy(col("subject"))
 //        .agg (
 //          min("score") alias  ("minscore"),

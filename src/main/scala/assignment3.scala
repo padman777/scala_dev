@@ -32,6 +32,8 @@ object assignment3 {
       ("E008", "HR", 85, "2024-03-25", "HR Manager")
     ).toDF("employee_id", "department", "performance_score", "review_date", "position")
 
+
+
 //    val df1 = employeePerformance
 //    .withColumn("month",month (col("review_date")))
 //      .filter(col("position").like("%Manager") && col("performance_score")>80)
@@ -63,25 +65,25 @@ object assignment3 {
 //    
 //    Use the lead function to find the next year's revenue trend for each country.
 
-//    val customerChurn = List(
-//      ("C001", "Premium Gold", "Yes", "2023-12-01", 1200, "USA"),
-//      ("C002", "Basic", "No", null, 400, "Canada"),
-//      ("C003", "Premium Silver", "Yes", "2023-11-15", 800, "UK"),
-//      ("C004", "Premium Gold", "Yes", "2024-01-10", 1500, "USA"),
-//      ("C005", "Basic", "No", null, 300, "India"),
-//      ("C006", "Premium Silver", "Yes", "2024-01-20", 1300, "UK"),
-//      ("C007", "Premium Gold", "Yes", "2024-02-15", 1800, "USA"),
-//      ("C008", "Basic", "No", null, 600, "India"),
-//      ("C009", "Premium Gold", "Yes", "2023-12-25", 1700, "USA"),
-//      ("C010", "Premium Silver", "Yes", "2023-11-01", 900, "UK")
-//    ).toDF("customer_id" ,"subscription_type", "churn_status", "churn_date", "revenue" ,"country")
-//
-//
-//    val d1 = customerChurn
+    val customerChurn = List(
+      ("C001", "Premium Gold", "Yes", "2023-12-01", 1200, "USA"),
+      ("C002", "Basic", "No", null, 400, "Canada"),
+      ("C003", "Premium Silver", "Yes", "2023-11-15", 800, "UK"),
+      ("C004", "Premium Gold", "Yes", "2024-01-10", 1500, "USA"),
+      ("C005", "Basic", "No", null, 300, "India"),
+      ("C006", "Premium Silver", "Yes", "2024-01-20", 1300, "UK"),
+      ("C007", "Premium Gold", "Yes", "2024-02-15", 1800, "USA"),
+      ("C008", "Basic", "No", null, 600, "India"),
+      ("C009", "Premium Gold", "Yes", "2023-12-25", 1700, "USA"),
+      ("C010", "Premium Silver", "Yes", "2023-11-01", 900, "UK")
+    ).toDF("customer_id" ,"subscription_type", "churn_status", "churn_date", "revenue" ,"country")
 
-    //val d2 = d1.withColumn("churn year",year(col("churn_date"))).show ()
-    //&& col("churn_status").isNotNull()
-    //val d3= d1.filter(col("subscription_type").like("Premium%") && col("churn_status").isNotNull).show ()
+
+    val d1 = customerChurn.show()
+
+//    val d2 = d1.withColumn("churn year",year(col("churn_date"))).show ()
+//    && col("churn_status").isNotNull()
+//    val d3= d1.filter(col("subscription_type").like("Premium%") && col("churn_status").isNotNull).show ()
 
 //    d1.groupBy(col("country"),year(col("churn_date")))
 //      .agg(sum(col("revenue")).alias("sum")
@@ -90,7 +92,7 @@ object assignment3 {
 //          ,sum(col("revenue")).alias("totalrevenue")
 //
 //      )
-
+//
 //    d1.groupBy(col("country"))
 //      .agg(
 //        sum(col("revenue"))

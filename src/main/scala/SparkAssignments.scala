@@ -18,8 +18,8 @@ import scala.reflect.internal.util.TriState.True
 
 object SparkAssignments{
   def main(args: Array[String]): Unit = {
-    Logger.getLogger(("org")).setLevel(Level.OFF)
-    Logger.getLogger(("akka")).setLevel(Level.OFF)
+    //Logger.getLogger(("org")).setLevel(Level.OFF)
+    //Logger.getLogger(("akka")).setLevel(Level.OFF)
 
     val spark = SparkSession.builder()
       .appName("CSV Reader")
@@ -720,30 +720,41 @@ object SparkAssignments{
 //        .when(col("salary")>60000,"medium")
 //        .otherwise("low")
 //    ).filter(col("department").like("IT%")).show()
-    val df1=spark.read
+//    val df1=spark.read
+//      .format("csv")
+//      .option("header",true)
+//      .option("path","C:/Users/padma/Downloads/new1.csv")
+//      .load()
+
+
+
+    val df2 = spark.read
       .format("csv")
-      .option("header",true)
-      .option("path","C:/Users/padma/Downloads/info.csv")
+      .option("header", true)
+      .option("path", "C:/Users/padma/Downloads/details.csv")
       .load()
 
+    df2.show()
+    df2.printSchema()
+
+//    val condition=df1("id")===df2("id")
+//
+//    val jointype="fullouter"
+//
+//
+//    val joineddf=df1.join(df2,condition,jointype).drop(df2("id"))
+//
+//    joineddf.show()
 
 
-    val df2=spark.read
-      .format("csv")
-      .option("header",true)
-      .option("path","C:/Users/padma/Downloads/details.csv")
-      .load()
-
-    val condition=df1("id")===df2("id")
-
-    val jointype="fullouter"
-
-
-    val joineddf=df1.join(df2,condition,jointype).drop(df2("id"))
-
-    joineddf.show()
-
-
+    df2.show()
+//    df1.write
+//      .format("csv")
+//      .partitionBy("city")
+//      .option("maxRecordsPerFile",2)
+//      .mode(SaveMode.Overwrite)
+//      .option("path","C:/Users/padma/Downloads/oct4op")
+//      .save()
 
 
 
